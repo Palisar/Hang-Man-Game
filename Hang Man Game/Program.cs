@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 
 namespace Hang_Man_Game
@@ -100,17 +101,12 @@ namespace Hang_Man_Game
                 }
                 else if (flag == 1)   //WIN CONDITION
                 {
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 3; i++)
                     {
-                        Console.WriteLine("CONGRADULATIONS YOU WIN!\n");
-                        Thread.Sleep(50);
+                        Console.WriteLine("CONGRADULATIONS YOU WIN!");
+                        Thread.Sleep(500);
                         Console.Clear();
-                        Console.WriteLine("\nCONGRADULATIONS YOU WIN!");
-                        Thread.Sleep(50);
-                        Console.Clear();
-                        Console.WriteLine("\n \nCONGRADULATIONS YOU WIN!");
-                        Thread.Sleep(50);
-                        Console.Clear();
+                        
                     }
                     Console.WriteLine("CONGRADULATIONS YOU WIN!");
                     Thread.Sleep(3000);
@@ -123,14 +119,18 @@ namespace Hang_Man_Game
                 GameBoard();
                 Console.Write("Please enter a letter: ");
 
+                bool intCheck = false;
                 string str = Console.ReadLine();
-                while(str.Length != 1)
+                intCheck = str.Any(char.IsDigit);
+                while (str.Length != 1 ||  intCheck)      // This While Loop is just to check if the user inputs a single letter and also if its a number
                 {
                     Console.Clear();
                     Console.WriteLine(guessArr);
                     GameBoard();
+                    intCheck = false;
                     Console.Write("Invalid Input. Please enter a letter: ");
                     str = Console.ReadLine();
+                    intCheck = str.Any(char.IsDigit);
                 }
                 guessLetter = Convert.ToChar(str);
 
