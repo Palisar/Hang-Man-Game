@@ -78,10 +78,16 @@ namespace Hang_Man_Game
             Console.Clear();
             Console.Write("Please enter a  word: ");
             guessWord = Console.ReadLine();
+            char[] blankArr = new char[guessWord.Length];
             char[] checkArr = guessWord.ToCharArray();
             char[] guessArr = new char[guessWord.Length ];
             int flag = 0;
-            
+
+            // added this fucntion to present the word as a blank string in the game to help player know how many characters they are dealing with
+            for(int c = 0; c < checkArr.Length; c++)
+            {
+                blankArr[c] = '*';
+            }
           //  --------------------------------------------
 
             //MAIN GAME LOOP
@@ -115,17 +121,17 @@ namespace Hang_Man_Game
 
 
                 Console.Clear();
-                Console.WriteLine(guessArr);
+                Console.WriteLine(blankArr);
                 GameBoard();
                 Console.Write("Please enter a letter: ");
 
-                bool intCheck = false;
+                bool intCheck = false;  //Added This to check for numbers
                 string str = Console.ReadLine();
                 intCheck = str.Any(char.IsDigit);
                 while (str.Length != 1 ||  intCheck)      // This While Loop is just to check if the user inputs a single letter and also if its a number
                 {
                     Console.Clear();
-                    Console.WriteLine(guessArr);
+                    Console.WriteLine(blankArr);
                     GameBoard();
                     intCheck = false;
                     Console.Write("Invalid Input. Please enter a letter: ");
@@ -142,7 +148,8 @@ namespace Hang_Man_Game
                     {
                         if(guessLetter == checkArr[i])
                         {
-                            guessArr[i] = guessLetter;      
+                            guessArr[i] = guessLetter;
+                            blankArr[i] = guessLetter;
                         }
                      
                     }   
@@ -151,7 +158,7 @@ namespace Hang_Man_Game
                 {
                     wrong[hangCount] = fillW[hangCount];
                     Console.WriteLine("Incorrect!");
-                    Thread.Sleep(700);
+                    Thread.Sleep(500);
                     hangCount++;
 
                 }
