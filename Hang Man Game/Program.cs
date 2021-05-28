@@ -9,7 +9,6 @@ namespace Hang_Man_Game
         
         static int hangCount = 0;
         static bool correct;
-        static bool run = true;
         static char guessLetter;
         static string guessWord;
         static string checkWord;          //0    1    2    3    4    5    6   
@@ -26,8 +25,8 @@ namespace Hang_Man_Game
             Console.WriteLine("      |______");
          /*  ___
             |  
-            |  O
-            | /|\
+            | \O/
+            |  |
             | /_\
             ||___|
          */
@@ -50,8 +49,7 @@ namespace Hang_Man_Game
             else
             {
                 return 0;
-            }
-             
+            }    
         }
 
        
@@ -78,13 +76,26 @@ namespace Hang_Man_Game
             Console.Clear();
             Console.Write("Please enter a  word: ");
             guessWord = Console.ReadLine();
+            /*Added this While Loop to make sure the person entering a word
+             does not use numbers.*/
+            bool noNumbers = guessWord.Any(char.IsDigit);
+            while (noNumbers)
+            {
+                Console.Clear();
+                Console.WriteLine("Word must not contain Numbers.");
+                Console.Write("Please enter a  word: ");
+                guessWord = Console.ReadLine();
+                noNumbers = guessWord.Any(char.IsDigit);
+            }
             char[] blankArr = new char[guessWord.Length];
             char[] checkArr = guessWord.ToCharArray();
             char[] guessArr = new char[guessWord.Length ];
             int flag = 0;
 
-            // added this fucntion to present the word as a blank string in the game to help player know how many characters they are dealing with
-            for(int c = 0; c < checkArr.Length; c++)
+            /* added this fucntion to present the word as a blank string of '*'
+               in the game to help player know how many characters they are dealing with 
+               and where they have guessed correctly */
+            for (int c = 0; c < checkArr.Length; c++)
             {
                 blankArr[c] = '*';
             }
@@ -107,13 +118,7 @@ namespace Hang_Man_Game
                 }
                 else if (flag == 1)   //WIN CONDITION
                 {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        Console.WriteLine("CONGRADULATIONS YOU WIN!");
-                        Thread.Sleep(500);
-                        Console.Clear();
-                        
-                    }
+                   
                     Console.WriteLine("CONGRADULATIONS YOU WIN!");
                     Thread.Sleep(3000);
                     break;
@@ -163,7 +168,7 @@ namespace Hang_Man_Game
 
                 }
 
-            } while (run);
+            } while (flag == 0);
 
             
         }
