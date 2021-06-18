@@ -32,7 +32,7 @@ namespace Hang_Man_Game
             string checking = new string(check);
             string guessing = new string(guess);
 
-            if (wrong[6] == '\\')
+            if (wrong[6] == '\\')//GAME OVER Condition
             {
                 Console.Clear();
                 Console.WriteLine(blank);
@@ -42,7 +42,7 @@ namespace Hang_Man_Game
                return -1;
 
             }
-            else if (checking == guessing)
+            else if (checking == guessing) // WIN Condition
             {
                 Console.Clear();
                 Console.WriteLine(blank);
@@ -51,9 +51,9 @@ namespace Hang_Man_Game
                 Thread.Sleep(3000);
                 return 1;
             }
-            else
+            else //Continue Playing
             {
-                return 0;
+                return 0; 
             }
         }
         public bool CheckForNumsAndSpaces()
