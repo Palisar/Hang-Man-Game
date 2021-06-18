@@ -13,7 +13,7 @@ namespace Hang_Man_Game
         public string GuessWord { 
             get { return guessWord; }
             set { guessWord = value; } 
-        }                               //0    1    2    3    4    5    6   
+        }                                         //0    1    2    3    4    5    6   
         private static char[] wrong = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         private static char[] fillW = new char[] { '|', 'O', '/', '|', '\\', '/', '\\' };
         private static int hangCount = 0;
@@ -27,7 +27,7 @@ namespace Hang_Man_Game
             Console.WriteLine("      |______");
 
         }
-        public int CheckWin(char[] check, char[] guess, char[] blank)
+        public int CheckWin(char[] check, char[] guess)
         {
             string checking = new string(check);
             string guessing = new string(guess);
@@ -35,7 +35,7 @@ namespace Hang_Man_Game
             if (wrong[6] == '\\')//GAME OVER Condition
             {
                 Console.Clear();
-                Console.WriteLine(blank);
+                Console.WriteLine(guess);
                 HangMan.GameBoard();
                 Console.WriteLine("GAME OVER");
                 Thread.Sleep(3000);
@@ -45,7 +45,7 @@ namespace Hang_Man_Game
             else if (checking == guessing) // WIN Condition
             {
                 Console.Clear();
-                Console.WriteLine(blank);
+                Console.WriteLine(guess);
                 HangMan.GameBoard();
                 Console.WriteLine("CONGRADULATIONS YOU WIN!");
                 Thread.Sleep(3000);
@@ -67,7 +67,7 @@ namespace Hang_Man_Game
                 return false;
             }
         }
-        public bool GuessRight(char letter, string guessWord)
+        public bool GuessRightOrWrong(char letter, string guessWord)
         {
             if (guessWord.Contains(letter))
             {

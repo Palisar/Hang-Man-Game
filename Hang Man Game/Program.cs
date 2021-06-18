@@ -9,9 +9,8 @@ namespace Hang_Man_Game
         static void Main(string[] args)
         {           //---GAME OPENED---
             HangMan Game = new HangMan();
-            char[] blankArr;
-            char[] checkArr;
-            char[] guessArr;    
+            char[] checkArr; //Our blank array will populate with '*' then correct letters as they come. To show player progess
+            char[] guessArr; //Will contain the word input by our player.
 
             Console.WriteLine("Welcome To HangMan");
             Thread.Sleep(1000);
@@ -24,22 +23,21 @@ namespace Hang_Man_Game
             while (Game.CheckForNumsAndSpaces())
             {
                 Console.Clear();
-                Console.WriteLine("Word must not contain Numbers.");
+                Console.WriteLine("Word must not contain numbers or spaces.");
                 Console.Write("Please enter a  word: ");
                 Game.GuessWord = Console.ReadLine().ToLower() ;
             }
 
-            blankArr = new char[Game.GuessWord.Length];
             checkArr = Game.GuessWord.ToCharArray();
             guessArr = new char[Game.GuessWord.Length];
-            int flag = 0;
+            int flag;
 
             /* added this fucntion to present the word as a blank string of '*'
                in the game to help player know how many characters they are dealing with 
                and where they have guessed correctly */
             for(int i = 0; i < Game.GuessWord.Length; i++)
             {
-                blankArr[i] = '*';
+                guessArr[i] = '*';
             }
             //  ----------------------------------------------------------------------------------------
 
@@ -47,35 +45,33 @@ namespace Hang_Man_Game
             do
             {
                 Console.Clear();
-                Console.WriteLine(blankArr);
+                Console.WriteLine(guessArr);
                 HangMan.GameBoard();
                 Console.Write("Please enter a letter: ");
                 char key = Console.ReadKey(false).KeyChar;
                 while (char.IsDigit(key))      // This While Loop is just to check if the user inputs a single letter and also if its a number
                 {
                     Console.Clear();
-                    Console.WriteLine(blankArr);
+                    Console.WriteLine(guessArr);
                     HangMan.GameBoard();
                     Console.Write("Invalid Input. Please enter a letter: ");
                     key = Console.ReadKey(false).KeyChar;
                     
                 }
 
-                if (Game.GuessRight(key, Game.GuessWord))
+                if (Game.GuessRightOrWrong(key, Game.GuessWord))
                 {
                     for (int i = 0; i < Game.GuessWord.Length  ; i++)
                     {
                         if(key == checkArr[i])
                         {
-                            guessArr[i] = key;
-                            blankArr[i] = key;
+                            guessArr[i] = key;  
                         }
-                     
                     }   
                 }
 
                 //Check if the game is Won/Lost/Still going
-                flag = Game.CheckWin(checkArr, guessArr, blankArr);
+                flag = Game.CheckWin(checkArr, guessArr);
 
             } while (flag == 0);
 
